@@ -1,259 +1,528 @@
 ---
 name: generating-excalidraw-visuals
-description: Generates hand-drawn style visuals from video scripts using Excalidraw in the browser. Use when creating diagrams, flowcharts, infographics, or illustrations for YouTube videos, educational content, or presentations. Requires Playwright MCP server for browser automation.
+description: Generates hand-drawn style visuals from video scripts by creating Excalidraw JSON files programmatically, then importing into Excalidraw for visual validation. Use when creating diagrams, flowcharts, infographics, or illustrations for YouTube videos, educational content, or presentations.
 ---
 
 # Excalidraw Visual Generation
 
-Create professional hand-drawn style visuals from video scripts using browser-based Excalidraw automation.
+Create professional hand-drawn style visuals by generating `.excalidraw` JSON files programmatically, then validating them visually in the browser.
 
 ## Prerequisites
 
-**Required**: Playwright MCP server must be configured. See [reference/playwright-setup.md](reference/playwright-setup.md).
+- **Required**: Playwright MCP server for visual validation. See [reference/playwright-setup.md](reference/playwright-setup.md).
+- **Required**: Read [reference/excalidraw-json-schema.md](reference/excalidraw-json-schema.md) before generating JSON.
+- **Required**: Read [reference/Presenting_Information_Visually.pdf](reference/Presenting_Information_Visually.pdf) for design principles.
 
-## Quick Start
+## Approach: JSON-First
 
-1. Parse script for visual moments
-2. Open Excalidraw workspace in browser
-3. Create visuals using browser automation
-4. Take screenshots to verify work
-5. Export/save completed scenes
+**Why JSON-first instead of browser automation?**
+- Precise control over element positioning and styling
+- Reproducible results
+- Faster iteration
+- Browser only used for validation, not drawing
 
-## Workflow
-
-Copy this checklist and track progress:
+## Workflow Overview
 
 ```
-Visual Generation Progress:
-- [ ] Step 1: Analyze script for visual segments
-- [ ] Step 2: Navigate to Excalidraw workspace
-- [ ] Step 3: Create new scene for each visual
-- [ ] Step 4: Build diagram using browser tools
-- [ ] Step 5: Screenshot to verify appearance
-- [ ] Step 6: Iterate based on visual feedback
-- [ ] Step 7: Export final visuals
+1. Analyze script → Identify visual moments
+2. Design layout → Plan element positions
+3. Create task plan → Break JSON generation into chunks (avoids token limits)
+4. Generate JSON incrementally → Build .excalidraw file piece by piece
+5. Validate JSON → Run validation script
+6. Import to browser → Drag & drop file
+7. Visual check → Screenshot and review
+8. Iterate → Adjust JSON if needed
+9. Export → Save final visuals
 ```
+
+## Defaults
+
+- **One scene per request**: Create exactly ONE `.excalidraw` file containing all visual moments, unless user explicitly requests multiple
+- **Output location**: Save files to project root or user-specified location
+- **Naming**: Use descriptive names like `context-engineering-diagram.excalidraw`
+
+---
+
+## Step-by-Step Workflow
 
 ### Step 1: Analyze Script for Visual Segments
 
 Read the script and identify moments that benefit from visuals:
 
-| Script Pattern | Visual Type | Excalidraw Approach |
-|----------------|-------------|---------------------|
-| "Today we'll learn about X" | Concept introduction | Central title with branching ideas |
-| "First... then... finally" | Process/Flow | Flowchart with arrows |
-| "X vs Y" or "compared to" | Comparison | Side-by-side boxes |
+| Script Pattern | Visual Type | JSON Approach |
+|----------------|-------------|---------------|
+| "Today we'll learn about X" | Concept introduction | Central rectangle with radiating elements |
+| "First... then... finally" | Process/Flow | Connected rectangles with arrows |
+| "X vs Y" or "compared to" | Comparison | Side-by-side rectangles |
 | "There are 3 types..." | Categories | Grouped containers |
-| "The architecture includes..." | System diagram | Boxes with connections |
-| Statistics or percentages | Data visual | Simple charts or callouts |
+| "The architecture includes..." | System diagram | Boxes with connecting arrows |
+| Statistics or percentages | Data visual | Large text with supporting shapes |
 
-### Step 2: Navigate to Excalidraw Workspace
+### Step 2: Design Layout
+
+Before writing JSON, plan your layout:
+
+**Canvas**: 1920 x 1080 (YouTube optimized)
+**Safe area**: Keep content within 100-1820 x, 100-980 y
+
+Sketch mentally or note:
+- Main elements and their approximate positions
+- Connection flow (arrows)
+- Color coding scheme
+- Text content for labels
+
+### Step 3: Create Task Plan
+
+**CRITICAL**: Before generating JSON, create a task plan to avoid hitting token limits. Large diagrams with many elements can exceed output limits if generated all at once.
+
+**Why plan first?**
+- Excalidraw JSON is verbose (each element requires 15+ fields)
+- A diagram with 10+ elements can easily exceed token limits
+- Breaking work into chunks ensures complete, valid output
+
+**How to plan:**
+
+1. Review the visual segments identified in Step 1
+2. Create a TODO task for each logical chunk of work
+3. Each task should represent a manageable piece of JSON generation
+
+**Guidance for chunking (flexible, not rigid rules):**
+
+| Approach | When to Use |
+|----------|-------------|
+| One task per visual segment | Default approach - each scene/moment gets its own task |
+| One task per element group | When a single segment has many related elements (e.g., a flowchart with 8 boxes) |
+| One task per element type | When building systematically (all rectangles, then all text, then all arrows) |
+
+**Example task plan for a flowchart diagram:**
 
 ```
-Use Playwright MCP to navigate:
-browser_navigate to: https://app.excalidraw.com/w/9sxW7DF3QzC/dashboard
+TODO 1: Create base file structure and canvas setup
+TODO 2: Generate main process boxes (rectangles for steps 1-4)
+TODO 3: Generate decision diamond and branch boxes
+TODO 4: Generate text labels for all shapes
+TODO 5: Generate arrow connectors between elements
+TODO 6: Final assembly and validation
 ```
 
-If authentication is needed, the user can log in manually while browser is visible.
+**Example task plan for a multi-scene video:**
 
-### Step 3: Create New Scene
+```
+TODO 1: Create base file structure
+TODO 2: Scene 1 - Introduction concept diagram (central box + radiating elements)
+TODO 3: Scene 2 - Comparison chart (side-by-side boxes)
+TODO 4: Scene 3 - Process flow (connected rectangles)
+TODO 5: Final validation and positioning adjustments
+```
 
-From the dashboard:
-1. Click "New Scene" or use keyboard shortcut
-2. Name the scene descriptively (e.g., "01_intro_concept")
+**Task creation tips:**
+- Use the TaskCreate tool to track progress
+- Each task should produce a defined set of elements
+- Include element IDs in task descriptions for cross-referencing
+- Mark tasks complete as you generate each chunk
 
-### Step 4: Build Diagram Using Browser Tools
+---
 
-**Core Excalidraw keyboard shortcuts** (use browser_press_key):
-- `R` - Rectangle tool
-- `O` - Ellipse tool  
-- `A` - Arrow tool
-- `L` - Line tool
-- `T` or double-click - Text tool
-- `V` or `1` - Selection tool
-- `H` - Hand/pan tool
-- `Ctrl+D` - Duplicate selected
-- `Ctrl+G` - Group selected
-- `Ctrl+Shift+G` - Ungroup
+### Step 4: Generate Excalidraw JSON
 
-**Element creation pattern**:
-1. Press key for tool (e.g., `R` for rectangle)
-2. Click and drag on canvas to create
-3. Double-click to add text inside shapes
-4. Use arrow tool to connect elements
+**CRITICAL**: Read [reference/excalidraw-json-schema.md](reference/excalidraw-json-schema.md) first.
 
-### Step 5: Screenshot to Verify Appearance
+Create the `.excalidraw` file with this structure:
 
-**CRITICAL**: After making changes, take a screenshot to see what you created:
+```json
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    // Your elements here
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null,
+    "theme": "light"
+  },
+  "files": {}
+}
+```
+
+#### Incremental Generation Strategy
+
+Follow your task plan from Step 3. For each task:
+
+1. **First task**: Create the base file with empty `elements` array
+2. **Subsequent tasks**: Read the file, add new elements to the array, write back
+3. **Use Edit tool**: Append elements to the `elements` array rather than rewriting the entire file
+
+**Example incremental workflow:**
+
+```
+Task 1: Write base structure
+  → Write file with "elements": []
+
+Task 2: Add main boxes
+  → Edit file: insert rectangle elements into array
+
+Task 3: Add text labels
+  → Edit file: append text elements to array
+
+Task 4: Add arrows
+  → Edit file: append arrow elements to array
+```
+
+This approach keeps each operation within token limits and produces a complete, valid file.
+
+#### Element Creation Checklist
+
+For each element, ensure:
+- [ ] Unique `id` (21 alphanumeric chars)
+- [ ] Correct `type` (rectangle, ellipse, diamond, text, arrow, line, frame)
+- [ ] Position: `x`, `y` coordinates
+- [ ] Size: `width`, `height`
+- [ ] Style: `strokeColor`, `backgroundColor`, `fillStyle`, `strokeWidth`, `roughness`
+- [ ] All required fields from schema
+
+#### Quick Reference: Common Elements
+
+**Rectangle (process box):**
+```json
+{
+  "id": "box_001",
+  "type": "rectangle",
+  "x": 100, "y": 100,
+  "width": 200, "height": 80,
+  "strokeColor": "#1e1e1e",
+  "backgroundColor": "#a5d8ff",
+  "fillStyle": "solid",
+  "strokeWidth": 2,
+  "strokeStyle": "solid",
+  "roughness": 1,
+  "opacity": 100,
+  "angle": 0,
+  "groupIds": [],
+  "frameId": null,
+  "index": "a0",
+  "roundness": { "type": 3 },
+  "seed": 123456789,
+  "version": 1,
+  "versionNonce": 987654321,
+  "isDeleted": false,
+  "boundElements": [],
+  "updated": 1704067200000,
+  "link": null,
+  "locked": false
+}
+```
+
+**Text label:**
+```json
+{
+  "id": "label_001",
+  "type": "text",
+  "x": 120, "y": 125,
+  "width": 160, "height": 30,
+  "text": "Process Step",
+  "fontSize": 24,
+  "fontFamily": 1,
+  "textAlign": "center",
+  "verticalAlign": "middle",
+  "strokeColor": "#1e1e1e",
+  "backgroundColor": "transparent",
+  "fillStyle": "solid",
+  "strokeWidth": 2,
+  "strokeStyle": "solid",
+  "roughness": 1,
+  "opacity": 100,
+  "angle": 0,
+  "groupIds": [],
+  "frameId": null,
+  "index": "a1",
+  "roundness": null,
+  "seed": 234567890,
+  "version": 1,
+  "versionNonce": 876543210,
+  "isDeleted": false,
+  "boundElements": [],
+  "updated": 1704067200000,
+  "link": null,
+  "locked": false,
+  "containerId": null,
+  "originalText": "Process Step",
+  "autoResize": true,
+  "lineHeight": 1.25
+}
+```
+
+**Arrow connector:**
+```json
+{
+  "id": "arrow_001",
+  "type": "arrow",
+  "x": 300, "y": 140,
+  "width": 100, "height": 0,
+  "points": [[0, 0], [100, 0]],
+  "startArrowhead": null,
+  "endArrowhead": "arrow",
+  "startBinding": null,
+  "endBinding": null,
+  "strokeColor": "#1e1e1e",
+  "backgroundColor": "transparent",
+  "fillStyle": "solid",
+  "strokeWidth": 2,
+  "strokeStyle": "solid",
+  "roughness": 1,
+  "opacity": 100,
+  "angle": 0,
+  "groupIds": [],
+  "frameId": null,
+  "index": "a2",
+  "roundness": { "type": 2 },
+  "seed": 345678901,
+  "version": 1,
+  "versionNonce": 765432109,
+  "isDeleted": false,
+  "boundElements": [],
+  "updated": 1704067200000,
+  "link": null,
+  "locked": false,
+  "elbowed": false
+}
+```
+
+### Step 5: Validate JSON
+
+Run the validation script before importing:
+
+```bash
+python scripts/validate_excalidraw.py your_file.excalidraw
+```
+
+Fix any errors reported.
+
+### Step 6: Import to Excalidraw
+
+Use Playwright to import and validate:
+
+```
+1. browser_navigate to: https://excalidraw.com
+2. Wait for canvas to load
+3. Use browser_file_upload or drag-drop simulation to import the .excalidraw file
+4. browser_take_screenshot to capture result
+```
+
+**Import method - File Upload:**
+```javascript
+// The file input accepts .excalidraw files
+// Navigate to excalidraw.com, then use Ctrl+O or menu to open file
+```
+
+**Alternative - Direct URL with data:**
+For quick testing, you can also copy-paste JSON directly into excalidraw.com using the import feature.
+
+### Step 7: Visual Validation
+
+After importing, take a screenshot:
 
 ```
 browser_take_screenshot
 ```
 
-This allows you to:
-- Verify element placement
-- Check text readability
-- Assess overall composition
-- Identify needed adjustments
+Check for:
+- [ ] All elements visible and positioned correctly
+- [ ] Text readable and not overlapping
+- [ ] Colors match design intent
+- [ ] Arrows connecting properly
+- [ ] Overall composition balanced
 
-### Step 6: Iterate Based on Visual Feedback
+### Step 8: Iterate if Needed
 
-After each screenshot:
-1. Assess if the visual follows style guidelines (see below)
-2. Adjust colors, spacing, or text as needed
-3. Screenshot again to verify changes
-4. Repeat until satisfied
+If visual check reveals issues:
+1. Identify problem in JSON (position, size, color, etc.)
+2. Edit the `.excalidraw` file
+3. Re-validate with script
+4. Re-import and screenshot
 
-### Step 7: Export Final Visuals
+### Step 9: Export Final Visuals
 
-**Export options**:
-- `Ctrl+Shift+E` - Export dialog
-- Menu → Export image → PNG (for video overlays)
-- Menu → Export image → SVG (for scaling)
-- Scene auto-saves to workspace
+Once satisfied:
+- Scene auto-saves if using excalidraw.com account
+- Export as PNG: `Ctrl+Shift+E` → PNG
+- Export as SVG: For scalable graphics
 
 ---
 
 ## Style Guidelines
 
-Follow these principles from visual communication best practices:
+**CRITICAL**: Follow [reference/Presenting_Information_Visually.pdf](reference/Presenting_Information_Visually.pdf) principles.
 
-### Visual Processing Advantage
-Visuals are processed 60,000x faster than text. Keep diagrams simple and scannable.
+### Color Palette (Quick Reference)
 
-### Gestalt Principles
-- **Closure**: Viewers mentally complete incomplete shapes
-- **Continuity**: Use arrows/lines to guide the eye
-- **Proximity**: Group related items close together
-- **Similarity**: Use consistent colors for related concepts
+**Backgrounds:**
+| Purpose | Color | Hex |
+|---------|-------|-----|
+| Information/Process | Light Blue | `#a5d8ff` |
+| Success/Positive | Light Green | `#b2f2bb` |
+| Decision/Question | Light Yellow | `#ffec99` |
+| Warning/Important | Light Pink | `#ffc9c9` |
+| Action/Energy | Light Orange | `#ffd8a8` |
+| Creative/Special | Light Violet | `#d0bfff` |
 
-### Color Usage
+**Strokes:**
+| Purpose | Color | Hex |
+|---------|-------|-----|
+| Default | Near Black | `#1e1e1e` |
+| Transparent | - | `"transparent"` |
 
-**Warm colors** (positive/active concepts):
-- Light red/pink: `#ffc9c9`
-- Light yellow: `#ffec99`
-- Light orange: `#ffd8a8`
+### Typography
 
-**Cool colors** (neutral/passive concepts):
-- Light blue: `#a5d8ff`
-- Light green: `#b2f2bb`
-- Light purple: `#d0bfff`
+| Level | Size | Use |
+|-------|------|-----|
+| Title | 36-48px | Main headings |
+| Section | 24-28px | Section labels |
+| Body | 20px | Default text |
+| Detail | 16px | Annotations |
 
-**Stroke color**: Near black `#1e1e1e` for contrast
+### Roughness Settings
 
-### Typography Hierarchy
-- **Titles**: 36-48px, bold weight
-- **Labels**: 24-28px, regular weight
-- **Details**: 16-20px, lighter or smaller
+| Value | Style | Use |
+|-------|-------|-----|
+| 0 | Clean/Architect | Technical diagrams |
+| 1 | Hand-drawn | Default, friendly |
+| 2 | Sketchy | Informal, creative |
 
-### Diagram Types
+### DO and DON'T
 
-**Flowcharts** (for processes):
-- Use rectangles for actions
-- Use diamonds for decisions
-- Use rounded rectangles for start/end
-- Connect with arrows showing flow direction
+**DO:**
+- Use clear, concise labels (2-4 words max)
+- Maintain consistent colors for related concepts
+- Leave breathing room between elements (40-60px)
+- Use visual hierarchy (size, color, position)
+- Keep total elements under 20 for clarity
 
-**Comparison Charts** (for A vs B):
-- Side-by-side boxes with VS divider
-- Consistent sizing for both sides
-- Color code each side differently
-
-**Concept Maps** (for ideas):
-- Central concept in larger shape
-- Branches radiate outward
-- Related items grouped by color
-
-**Infographics** (for data/stats):
-- Large numbers as focal point
-- Icons to reinforce meaning
-- Minimal text, maximum visual
-
-### Keep It Simple
-- Use clear, concise labels
-- Limit to 5-7 elements per visual
-- Maintain consistent spacing
-- Use visual hierarchy to prioritize content
-- Avoid cluttering with too many elements
+**DON'T:**
+- Overcrowd the canvas
+- Use more than 4-5 colors
+- Write paragraphs of text
+- Mix conflicting color schemes
+- Forget accessibility (contrast)
 
 ---
 
-## Browser Automation Reference
+## Diagram Patterns
 
-### Playwright MCP Tools for Excalidraw
+### Flowchart Pattern
 
-**Navigation**:
 ```
-browser_navigate: url="https://app.excalidraw.com/..."
-```
-
-**Click elements**:
-```
-browser_click: element="New Scene button", ref="[from snapshot]"
+[Start] ──▶ [Process] ──▶ ◇Decision◇ ──▶ [End]
+                              │
+                              ▼
+                          [Alt Path]
 ```
 
-**Type text**:
+- Start/End: Rounded rectangles, green (`#b2f2bb`)
+- Process: Rectangles, blue (`#a5d8ff`)
+- Decision: Diamonds, yellow (`#ffec99`)
+
+### Comparison Pattern
+
 ```
-browser_type: element="text input", ref="[from snapshot]", text="Your text"
+┌─────────────┐     VS     ┌─────────────┐
+│   Option A  │            │   Option B  │
+│  (details)  │            │  (details)  │
+└─────────────┘            └─────────────┘
 ```
 
-**Press keys**:
+- Left side: One color family
+- Right side: Contrasting color family
+
+### Central Concept Pattern
+
 ```
-browser_press_key: key="r"  // Select rectangle tool
-browser_press_key: key="Control+d"  // Duplicate
+            ┌─────────┐
+       ┌────│ CENTRAL │────┐
+       │    └─────────┘    │
+       ▼                   ▼
+   [Branch 1]          [Branch 2]
 ```
 
-**Take screenshot** (essential for visual verification):
+- Central: Larger, prominent color
+- Branches: Smaller, supporting colors
+- Arrows: Radiating outward
+
+### Timeline Pattern
+
 ```
-browser_take_screenshot
+●────────●────────●────────●
+│        │        │        │
+2020    2021    2022    2023
 ```
 
-**Get page snapshot** (for finding element refs):
-```
-browser_snapshot
-```
-
-### Workflow Pattern
-
-1. `browser_snapshot` → Understand current page state
-2. `browser_click` or `browser_press_key` → Perform action
-3. `browser_take_screenshot` → Verify visual result
-4. Repeat as needed
+- Horizontal line as spine
+- Circles as milestones
+- Text below for labels
 
 ---
 
-## Import/Export JSON
+## File Management
 
-To start from an existing template:
+### Output Structure
 
-1. Have user provide `.excalidraw` JSON file
-2. In Excalidraw: Menu → Open (Ctrl+O)
-3. Select and upload the file
-4. Modify as needed
-5. Export when complete
+```
+project/
+├── visuals/
+│   ├── intro-diagram.excalidraw
+│   ├── process-flow.excalidraw
+│   └── exports/
+│       ├── intro-diagram.png
+│       └── process-flow.png
+```
 
-To save work:
-1. Menu → Save to disk (Ctrl+S)
-2. Or Menu → Export → select format
+### Naming Convention
+
+`{topic}-{type}.excalidraw`
+
+Examples:
+- `context-engineering-overview.excalidraw`
+- `api-flow-diagram.excalidraw`
+- `comparison-chart.excalidraw`
 
 ---
 
-## Error Handling
+## Troubleshooting
 
-**If Excalidraw workspace requires login**:
-- Pause and ask user to authenticate in the visible browser
-- Continue once logged in
+### JSON Won't Import
 
-**If element not found in snapshot**:
-- Take a fresh `browser_snapshot`
-- Look for updated element references
+1. Run validation script - check for errors
+2. Verify `"type": "excalidraw"` at top level
+3. Check all elements have required fields
+4. Ensure no duplicate IDs
 
-**If visual doesn't look right**:
-- Take screenshot to assess
-- Identify specific issue (color, position, size)
-- Make targeted adjustment
-- Screenshot again to verify
+### Elements Not Visible
 
-**If browser is headless/not visible**:
-- Playwright MCP should run headed by default
-- If issues, suggest user check Playwright MCP config
+1. Check `isDeleted` is `false`
+2. Verify `opacity` is 100
+3. Check x, y coordinates are within canvas
+4. Verify `index` ordering
+
+### Text Not Showing
+
+1. Ensure `text` field is not empty
+2. Check `fontSize` is reasonable (16-48)
+3. Verify `fontFamily` is valid (1, 2, 3, or 5)
+4. Check `strokeColor` is visible (not white on white)
+
+### Arrows Not Connecting
+
+1. Verify `points` array has at least 2 points
+2. Check `startBinding`/`endBinding` reference valid element IDs
+3. Ensure arrow `x`, `y` plus points reach target elements
+
+---
+
+## References
+
+- [Excalidraw JSON Schema](reference/excalidraw-json-schema.md) - Complete element specifications
+- [Style Guide](reference/style-guide.md) - Color and typography guidelines
+- [Visual Presentation PDF](reference/Presenting_Information_Visually.pdf) - Design principles
+- [Keyboard Shortcuts](reference/keyboard-shortcuts.md) - For manual adjustments
+- [Playwright Setup](reference/playwright-setup.md) - Browser automation config
