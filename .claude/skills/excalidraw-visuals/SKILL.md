@@ -123,6 +123,7 @@ Next, start the validation app and use playwright MCP to take a screenshot so yo
 2. Use Playwright MCP to navigate to: http://localhost:3000
 3. browser_take_screenshot to capture result
 ```
+NOTE:  Read [reference/keyboard-shortcuts.md](reference/keyboard-shortcuts.md) if you have trouble viewing / taking screenshot of full canvas.
 
 Fix any visual bugs found and revalidate (Do Phase 4-5 again)
 
