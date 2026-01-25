@@ -91,11 +91,233 @@ In this phase you should be filling the output/<Unique descriptive name>.excalid
 
 ## Available Libraries
 
+### Algorithms & Data Structures
+Arrays, matrices, trees, linked lists, and algorithm visualization components.
+**Contains**: Array blocks, tree nodes, matrix grids, linked list elements, and connecting arrows.
+**Use for**: Algorithm tutorials, data structure education, CS concept explanations.
+**Location**: `libraries/algorithms-and-data-structures-arrays-matrices-trees.excalidrawlib`
+
+### Architecture Diagram Components
+System and software architecture building blocks.
+**Contains**: Components, containers, connectors, and system boundaries.
+**Use for**: System architecture diagrams, component design, technical documentation.
+**Location**: `libraries/architecture-diagram-components.excalidrawlib`
+
+### Artem's Icons
+Minimalist line-based icon collection.
+**Contains**: 22 custom icons with clean line-based design.
+**Use for**: Adding stylized icons to diagrams, UI mockups, visual decoration.
+**Location**: `libraries/artem-s-icons.excalidrawlib`
+
+### Awesome Icons
+Rich icon set with diverse symbols and status indicators.
+**Contains**: Cancel, checkmarks, status badges, and various UI icons.
+**Use for**: UI mockups, status indicators, interface elements.
+**Location**: `libraries/awesome-icons.excalidrawlib`
+
 ### AWS Architecture Icons
 Cloud infrastructure and service icons for AWS diagrams.
 **Contains**: EC2, S3, Lambda, RDS, CloudFront, CloudSearch, and 50+ other AWS service icons with proper branding.
 **Use for**: Architecture diagrams, cloud infrastructure visuals, AWS service flows, system design presentations.
 **Location**: `libraries/aws-architecture-icons.excalidrawlib`
+
+### Basic Shapes
+Primitive geometric shapes for building diagrams.
+**Contains**: Lines, circles, rectangles, and basic geometric primitives.
+**Use for**: Foundation drawing, simple wireframes, basic diagram building blocks.
+**Location**: `libraries/basic-shapes.excalidrawlib`
+
+### Basic UX Wireframing Elements
+UI/UX wireframing components.
+**Contains**: Buttons, inputs, dropdowns, checkboxes, and 69 UI elements.
+**Use for**: Website wireframes, app mockups, user interface design, lo-fi prototypes.
+**Location**: `libraries/basic-ux-wireframing-elements.excalidrawlib`
+
+### Bubbles
+Speech bubbles and dialogue elements.
+**Contains**: Speech bubbles, thought bubbles, and communication shapes.
+**Use for**: Conversation flows, storytelling, dialogue diagrams, chat UI mockups.
+**Location**: `libraries/bubbles.excalidrawlib`
+
+### Cloud
+Cloud service icons and infrastructure components.
+**Contains**: Cloud service icons, server symbols, and 19 infrastructure elements.
+**Use for**: Cloud infrastructure diagrams, platform architecture, service integration flows.
+**Location**: `libraries/cloud.excalidrawlib`
+
+### Cloud Design Patterns
+Cloud architecture patterns and distributed system components.
+**Contains**: Pattern diagrams, data flow arrows, service blocks, and labeled components.
+**Use for**: AWS/Cloud architecture patterns, distributed system visualization, design pattern docs.
+**Location**: `libraries/cloud-design-patterns.excalidrawlib`
+
+### Data Sources
+Database and data system icons.
+**Contains**: Database symbols, data pipelines, ETL components, and storage icons.
+**Use for**: Data pipeline diagrams, database visualization, ETL flows, data architecture.
+**Location**: `libraries/data-sources.excalidrawlib`
+
+### Data Viz
+Data visualization components for charts and dashboards.
+**Contains**: Bar charts, line graphs, pie charts, metrics displays, and 32 visualization elements.
+**Use for**: Charts, graphs, dashboards, analytics mockups, KPI displays.
+**Location**: `libraries/data-viz.excalidrawlib`
+
+### Database Engineering
+Database schema and table design elements.
+**Contains**: Table structures, relationships, keys, and schema components.
+**Use for**: Database schema design, ER diagrams, data model documentation.
+**Location**: `libraries/db-eng.excalidrawlib`
+
+### Decision Flow Control
+Flowchart and decision tree elements.
+**Contains**: Decision diamonds, flow arrows, conditional branches, and process paths.
+**Use for**: Flowcharts, decision trees, algorithm visualization, business workflows.
+**Location**: `libraries/decision-flow-control.excalidrawlib`
+
+### DevOps
+DevOps and infrastructure components.
+**Contains**: CI/CD pipeline stages, containers, deployment elements, and monitoring icons.
+**Use for**: CI/CD pipeline diagrams, infrastructure architecture, deployment workflows.
+**Location**: `libraries/dev_ops.excalidrawlib`
+
+### Drwnio
+General purpose diagramming elements.
+**Contains**: Standard shapes, connectors, and general diagram components.
+**Use for**: General-purpose diagrams, flowcharts, basic technical diagrams.
+**Location**: `libraries/drwnio.excalidrawlib`
+
+### Emojis
+Colored folder and file icons.
+**Contains**: Folders in gray, red, pink, purple, blue, teal, green, yellow, orange colors.
+**Use for**: File structure diagrams, folder organization visuals, system hierarchy.
+**Location**: `libraries/emojis.excalidrawlib`
+
+### Forms
+UI form controls and input elements.
+**Contains**: Buttons (default and blue), input fields, form controls.
+**Use for**: UI/UX wireframing, form layout design, web interface mockups.
+**Location**: `libraries/forms.excalidrawlib`
+
+### Gantt
+Gantt charts and timeline components.
+**Contains**: Timeline bars, team rows, month headers, task status indicators (Done, Delayed, Pending, Critical).
+**Use for**: Project timelines, Gantt charts, team capacity planning, roadmaps.
+**Location**: `libraries/gantt.excalidrawlib`
+
+### Google Icons
+Google Material Design icons.
+**Contains**: Material Design icons for navigation, actions, and communication.
+**Use for**: Modern UI mockups, Material Design interfaces, Android-style designs.
+**Location**: `libraries/google-icons.excalidrawlib`
+
+### Icons
+General purpose icon library.
+**Contains**: Business icons, professional symbols, various visual elements.
+**Use for**: General diagramming, business process visualization, documentation.
+**Location**: `libraries/icons.excalidrawlib`
+
+### Information Architecture
+Site map and navigation structure elements.
+**Contains**: Page blocks, navigation structures, hierarchy elements.
+**Use for**: Website information architecture, site maps, content structure planning.
+**Location**: `libraries/information-architecture.excalidrawlib`
+
+### IT Logos
+Technology company and software logos.
+**Contains**: Tech company logos, software vendor icons, platform identifiers.
+**Use for**: Technology stack visualization, enterprise software diagrams, tool integration.
+**Location**: `libraries/it-logos.excalidrawlib`
+
+### Lo-Fi Wireframing Kit
+Low-fidelity wireframe components.
+**Contains**: Text labels, buttons, inputs, navigation bars, basic UI placeholders.
+**Use for**: Quick UI sketching, rapid prototyping, layout brainstorming.
+**Location**: `libraries/lo-fi-wireframing-kit.excalidrawlib`
+
+### Post-it
+Sticky notes and Kanban-style elements.
+**Contains**: Sticky notes, colored task cards, list items.
+**Use for**: Brainstorming sessions, Kanban boards, agile sprint planning, idea organization.
+**Location**: `libraries/post-it.excalidrawlib`
+
+### Robots
+Hand-drawn robot figures.
+**Contains**: Robot characters in various poses (sitting, standing, active).
+**Use for**: Tech/automation infographics, AI content, robotics illustrations.
+**Location**: `libraries/robots.excalidrawlib`
+
+### Software Architecture
+Software architecture diagram components.
+**Contains**: Colored diamonds, containers, decision points, system boundaries.
+**Use for**: Software architecture diagrams, system design, API visualization.
+**Location**: `libraries/software-architecture.excalidrawlib`
+
+### Some Hand-Drawn Signs
+Checkmarks and crosses.
+**Contains**: Hand-drawn checkmarks and crosses in red/green colors.
+**Use for**: Success/failure indicators, form validation visuals, approval workflows.
+**Location**: `libraries/some-handdrawn-signs.excalidrawlib`
+
+### Stick Figures
+Stick figure people in various poses.
+**Contains**: Stick figures with different postures and expressions.
+**Use for**: User flows, process diagrams, storytelling, educational content.
+**Location**: `libraries/stick-figures.excalidrawlib`
+
+### Stick People
+Stick people variations.
+**Contains**: Additional stick people designs and poses.
+**Use for**: User journey mapping, scenario illustrations, presentation visuals.
+**Location**: `libraries/stick-people.excalidrawlib`
+
+### Storytelling
+Narrative and storytelling elements.
+**Contains**: Character shapes, scene elements, narrative components.
+**Use for**: Visual storytelling, presentation narratives, educational illustrations.
+**Location**: `libraries/storytelling.excalidrawlib`
+
+### System Design
+System design components with labeled elements.
+**Contains**: Application servers, databases, clients, and labeled system blocks.
+**Use for**: System design interviews, architecture diagrams, distributed systems.
+**Location**: `libraries/system-design.excalidrawlib`
+
+### System Icons
+Simple system UI icons.
+**Contains**: Colored status circles (purple, red, green), status indicators.
+**Use for**: Dashboard designs, status indicator systems, interface mockups.
+**Location**: `libraries/system-icons.excalidrawlib`
+
+### Systems Design Components
+System design building blocks.
+**Contains**: Server components, load balancers, caches, and infrastructure elements.
+**Use for**: System design diagrams, scalability patterns, infrastructure planning.
+**Location**: `libraries/systems-design-components.excalidrawlib`
+
+### Technology Logos
+Technology and programming logos.
+**Contains**: Tech logos with colored backgrounds (purple, various colors).
+**Use for**: Tech stack visualization, portfolio showcases, integration diagrams.
+**Location**: `libraries/technology-logos.excalidrawlib`
+
+### UML-ER Library
+UML and Entity-Relationship diagram elements.
+**Contains**: Diamonds, rectangles, ellipses, and 21 UML/ER components.
+**Use for**: Database schemas, class diagrams, entity relationships, UML designs.
+**Location**: `libraries/UML-ER-library.excalidrawlib`
+
+### Universal UI Kit
+Comprehensive UI component library.
+**Contains**: Status boxes (attention, error, success), alert dialogs, pricing cards, web templates.
+**Use for**: Complete UI mockups, website prototypes, SaaS pricing pages, error message templates.
+**Location**: `libraries/universal-ui-kit.excalidrawlib`
+
+### Web Kit
+Professional web template components.
+**Contains**: Navigation bars, hero sections, CTAs, statistics counters, pricing tiers.
+**Use for**: Website design mockups, landing page prototypes, portfolio templates.
+**Location**: `libraries/web-kit.excalidrawlib`
 
 
 ### Phase 4: Validate JSON
