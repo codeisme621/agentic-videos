@@ -198,9 +198,3 @@ browser_press_key: key="Control+Alt+V"
 When using Playwright MCP on Mac, use `Meta` instead of `Control` for command shortcuts.
 
 ---
-
-## Sources
-
-- [Excalidraw Keyboard Shortcuts PDF](https://csswolf.com/excalidraw-keyboard-shortcuts-pdf/)
-- [Excalidraw How to Start](https://plus.excalidraw.com/how-to-start)
-- [Excalidraw Tips and Tricks](https://csswolf.com/awesome-excalidraw-tips-and-tricks/)

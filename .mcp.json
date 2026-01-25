@@ -4,8 +4,16 @@
       "command": "npx",
       "args": [
         "@playwright/mcp@latest",
-        "--cdp-endpoint", "http://localhost:9222"
+        "--browser",
+        "chromium",
+        "--isolated",
+        "--executable-path",
+        "/usr/bin/chromium-browser"
       ]
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
     }
   }
 }
