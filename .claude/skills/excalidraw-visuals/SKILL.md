@@ -87,238 +87,128 @@ In this phase you should be filling the output/<Unique descriptive name>.excalid
 
 **CRITICAL**: Read [reference/excalidraw-json-schema.md](reference/excalidraw-json-schema.md) to understand the excalidraw json schema.
 
-**CRITICAL**: Reuse Excalidraw library visuals whenever possible. You can reuse as is Or you can extend / modify the library visual.  Below are the available libraries, read only into context window when needed
+**CRITICAL**: Reuse Excalidraw library visuals whenever possible. You can reuse as is Or you can extend / modify the library visual.
 
-## Available Libraries
+### Using Library Components
 
-### Algorithms & Data Structures
-Arrays, matrices, trees, linked lists, and algorithm visualization components.
-**Contains**: Array blocks, tree nodes, matrix grids, linked list elements, and connecting arrows.
-**Use for**: Algorithm tutorials, data structure education, CS concept explanations.
-**Location**: `libraries/algorithms-and-data-structures-arrays-matrices-trees.excalidrawlib`
+1. Find the item name in the library catalog below
+2. Extract using:
+   ```bash
+   python3 scripts/extract_library_item.py libraries/<library>.excalidrawlib "<item_name>"
+   ```
+3. Modify x, y coordinates and generate new IDs for your layout
 
-### Architecture Diagram Components
-System and software architecture building blocks.
-**Contains**: Components, containers, connectors, and system boundaries.
-**Use for**: System architecture diagrams, component design, technical documentation.
-**Location**: `libraries/architecture-diagram-components.excalidrawlib`
+**Example:**
+```bash
+python3 scripts/extract_library_item.py libraries/aws-architecture-icons.excalidrawlib "S3"
+```
 
-### Artem's Icons
-Minimalist line-based icon collection.
-**Contains**: 22 custom icons with clean line-based design.
-**Use for**: Adding stylized icons to diagrams, UI mockups, visual decoration.
-**Location**: `libraries/artem-s-icons.excalidrawlib`
+**List all items in a library:**
+```bash
+python3 scripts/extract_library_item.py libraries/icons.excalidrawlib --list
+```
 
-### Awesome Icons
-Rich icon set with diverse symbols and status indicators.
-**Contains**: Cancel, checkmarks, status badges, and various UI icons.
-**Use for**: UI mockups, status indicators, interface elements.
-**Location**: `libraries/awesome-icons.excalidrawlib`
+---
+
+## Available Excalidraw library visuals
 
 ### AWS Architecture Icons
 Cloud infrastructure and service icons for AWS diagrams.
-**Contains**: EC2, S3, Lambda, RDS, CloudFront, CloudSearch, and 50+ other AWS service icons with proper branding.
 **Use for**: Architecture diagrams, cloud infrastructure visuals, AWS service flows, system design presentations.
 **Location**: `libraries/aws-architecture-icons.excalidrawlib`
+**Items** (249): Agent, Agentless Collector, Alarm, ALB, Alexa for Business, Amazon Bedrock, Amazon MQ, Amazon Q, AMI, Amplify, API Gateway, App Runner, AppConfig, AppFlow, Application Auto Scaling, Application Composer, Application Discovery Service, Application Migration Service, AppSync, Artifact, Athena, Attachment, Audit Manager, Augmented AI, Aurora, Aurora instance, Auto scaling, Auto Scaling group, Automation, AWS account, AWS CLI, AWS Cloud, AWS Step Functions Workflow, AWS STS, Backint Agent, Backup, Batch, Budgets, Business data catalog, Canvas, Certificate Manager, Chatbot, Chime, Client VPN, Cloud9, CloudFormation, CloudFront, CloudHSM, CloudSearch, CloudShell, CloudTrail, CloudWatch, CodeArtifact, CodeBuild, CodeCommit, CodeDeploy, CodeGuru, CodePipeline, CodeWhisperer, Cognito, Comprehend, Comprehend Medical, Config, Connect, Container, Container2, Control Tower, Cost & Usage Report, Cost Explorer, Crawler, Dashboard, Data center, Data Exchange, Data Lake, Data Pipeline, DataCatalog, DataSync, DataZone, DAX, DB Instance, DeepComposer, Detective, Device Farm, DevOps Guru, Direct Connect, Directory Service, Discovery, Discovery Agent, Distro for Open Telemetry, DMS, DocumentDB, Documents, DynamoDB, DynamoDB Table, EBS, EC2, EC2 Auto Scaling, EC2 contents, EC2 Image Builder, ECR, ECS, Edge location, EFS, EKS, EKS Anywhere, Elastic Beanstalk, Elastic Fabric Adapter, Elastic Inference, Elastic Views, ElastiCache, ELB, EMR, Endpoint, ENI, Event, Event bus, EventBridge, Fargate, Fault Injection Simulator, Firewall Manager, Flow logs, Forecast, Fraud Detector, FSx, Geospatial ML, Glacier, GLB, Global Accelerator, Glue, Glue DataBrew, Ground Truth, GuardDuty, IAM, IAM Identity Center, Image, Incident Manager, Inspector, Instance, Instance with CloudWatch, Instances, Interface Endpoint, Internet gateway, IoT Analytics, IoT Core, IoT ExpressLink, Iot Greengrass, IoT Greengrass, IoT RoboRunner, IoT sensor, IoT SiteWise, IoT topic, Kendra, Keyspaces, Kinesis, Kinesis Data Analytics, Kinesis Data Firehose, Kinesis Data Streams, Kinesis Video Streams, KMS, Lake Formation, Lambda, Lex, License Manager, Location Service, Logs, Macie, Managed Blockchain, Managed Service for Apache Flink, Managed Service for Grafana, Managed Service for Prometheus, Managed Streaming for Apache Kafka, Managed Workflows for Apache Airflow, MemoryDB for Redis, Migration Evaluator, Migration Hub, Model, Multi-AZ DB cluster, NACL, NAT gateway, Neptune, Network Firewall, NLB, Notebook, OpenSearch Service, OpsWorks, Organizations, Outposts, Panorama, Parameter Store, Peering connection, Permissions, Personal Health Dashboard, Personalize, Polly, Private Certificate Authority, PrivateLink, Quantum Ledger Database, QuickSight, RDS, RDS instance, Redshift, Region, Registry, Rekognition, Resilience Hub, Resolver, Resource Access Manager, Role, Route 53, Route table, Rule, S3, SageMaker, SageMaker Studio Lab, Saving Plans, Scheduler, Secrets Manager, Security Hub, Server Migration Service, Service, Service Catalog, SES, Session Manager, Shield, Site-to-Site VPN, Snowball, SNS, Spot Fleet, Spot instance, SQS, Step Functions, Storage Gateway, Stream, Support, System Manager, Task, Textract, Timestream, Tools and SDKs, Train, Transcribe, Transfer Family, Transit Gateway, VPC, VPN Connection, VPN gateway, WAF, Well-Arhitected Tool, X-Ray
 
-### Basic Shapes
-Primitive geometric shapes for building diagrams.
-**Contains**: Lines, circles, rectangles, and basic geometric primitives.
-**Use for**: Foundation drawing, simple wireframes, basic diagram building blocks.
-**Location**: `libraries/basic-shapes.excalidrawlib`
+### Google Icons
+Google Cloud and Material Design icons.
+**Use for**: GCP architecture, modern UI mockups, Material Design interfaces.
+**Location**: `libraries/google-icons.excalidrawlib`
+**Items** (139): Access Context Manager, Access Transparency, Anthos, Anthos Service mesh, Anthos Service Mesh II, API Analytics, API Gateway, API Monetization, Apigee API Management, Apigee Sense, App Engine, Apps Script, AppSheet, Artifact Registry, Assured Workloads, AutoML, Bare Metal Solution, BeyondCorp Enterprise, Bigquery, Billing, Binary Authorization, Calendar API, Carrier Peering, Certificate Authority Service, Classroom API, Cloud APIs, Cloud Armor, Cloud Asset Inventory, Cloud Audit Logs, Cloud Bigtable, Cloud Build, Cloud CDN, Cloud Code, Cloud Data Fusion, Cloud Data Loss Prevention, Cloud Data Transfer, Cloud Debugger, Cloud Deploy, Cloud DNS, Cloud Domains, Cloud Endpoints, Cloud Filestore, Cloud Firestore, Cloud Function, Cloud Healthcare API, Cloud IAM, Cloud Identity Aware Proxy, Cloud IDS, Cloud IoT Core, Cloud KMS, Cloud Load Balancing, Cloud Logging, Cloud Memorystore, Cloud Monitoring, Cloud NAT, Cloud Profiler, Cloud Router, Cloud Run, Cloud Run for Anthos, Cloud Scheduler, Cloud SDK, Cloud Shell, Cloud Spanner, Cloud SQL, Cloud Storage, Cloud Storage for Firebase, Cloud Tasks, Cloud TPU, Cloud Trace, Cloud Translation, Cloud Vision, Cloud VPN, Composer, Compute Engine, Console, Contact Center API, Container Analysis, Container Registry, Data Catalog, Data Studio, Database Migration Service, Dataflow, Dataplex, Dataprep, Dataproc, Datastream, Dedicated Interconnect, Deployment Manager, Dialogflow, Docs API, Document AI, Drive API, Error Reporting, Event Threat Detection, Eventarc, Firebase, GKE, Gmail API, Google Chats API, Google Cloud Game Servers, Healthcare Natural Language AI, Identity Platform, Local SSD, Managed Service for Microsoft, Maps SDK, Marketplace, Migrate for Compute Engine, Network Connectivity Center, Network Intelligence Center, Network Service Tiers, Operations Suite, Packet Mirroring, Partner Interconnect, People API, Persistent Disk, Private Service Connect, Pub Sub, reCAPTCHA Enterprise, Recommendations AI, Risk Manager, Secret Manager, Security Key Enforcement, Service Directory, Sheets API, Shielded VMs, Slides API, Speech to Text, Text to Speech, Traffic Director, Transfer Appliance, Vault API, Vertex AI, Video Intelligence API, Virtual Private Cloud, Vision Product Search, VM Manager, VMware Engine, Web Security Scanner, Workflows
 
 ### Basic UX Wireframing Elements
 UI/UX wireframing components.
-**Contains**: Buttons, inputs, dropdowns, checkboxes, and 69 UI elements.
 **Use for**: Website wireframes, app mockups, user interface design, lo-fi prototypes.
 **Location**: `libraries/basic-ux-wireframing-elements.excalidrawlib`
-
-### Bubbles
-Speech bubbles and dialogue elements.
-**Contains**: Speech bubbles, thought bubbles, and communication shapes.
-**Use for**: Conversation flows, storytelling, dialogue diagrams, chat UI mockups.
-**Location**: `libraries/bubbles.excalidrawlib`
-
-### Cloud
-Cloud service icons and infrastructure components.
-**Contains**: Cloud service icons, server symbols, and 19 infrastructure elements.
-**Use for**: Cloud infrastructure diagrams, platform architecture, service integration flows.
-**Location**: `libraries/cloud.excalidrawlib`
-
-### Cloud Design Patterns
-Cloud architecture patterns and distributed system components.
-**Contains**: Pattern diagrams, data flow arrows, service blocks, and labeled components.
-**Use for**: AWS/Cloud architecture patterns, distributed system visualization, design pattern docs.
-**Location**: `libraries/cloud-design-patterns.excalidrawlib`
-
-### Data Sources
-Database and data system icons.
-**Contains**: Database symbols, data pipelines, ETL components, and storage icons.
-**Use for**: Data pipeline diagrams, database visualization, ETL flows, data architecture.
-**Location**: `libraries/data-sources.excalidrawlib`
-
-### Data Viz
-Data visualization components for charts and dashboards.
-**Contains**: Bar charts, line graphs, pie charts, metrics displays, and 32 visualization elements.
-**Use for**: Charts, graphs, dashboards, analytics mockups, KPI displays.
-**Location**: `libraries/data-viz.excalidrawlib`
-
-### Database Engineering
-Database schema and table design elements.
-**Contains**: Table structures, relationships, keys, and schema components.
-**Use for**: Database schema design, ER diagrams, data model documentation.
-**Location**: `libraries/db-eng.excalidrawlib`
-
-### Decision Flow Control
-Flowchart and decision tree elements.
-**Contains**: Decision diamonds, flow arrows, conditional branches, and process paths.
-**Use for**: Flowcharts, decision trees, algorithm visualization, business workflows.
-**Location**: `libraries/decision-flow-control.excalidrawlib`
-
-### DevOps
-DevOps and infrastructure components.
-**Contains**: CI/CD pipeline stages, containers, deployment elements, and monitoring icons.
-**Use for**: CI/CD pipeline diagrams, infrastructure architecture, deployment workflows.
-**Location**: `libraries/dev_ops.excalidrawlib`
-
-### Drwnio
-General purpose diagramming elements.
-**Contains**: Standard shapes, connectors, and general diagram components.
-**Use for**: General-purpose diagrams, flowcharts, basic technical diagrams.
-**Location**: `libraries/drwnio.excalidrawlib`
-
-### Emojis
-Colored folder and file icons.
-**Contains**: Folders in gray, red, pink, purple, blue, teal, green, yellow, orange colors.
-**Use for**: File structure diagrams, folder organization visuals, system hierarchy.
-**Location**: `libraries/emojis.excalidrawlib`
-
-### Forms
-UI form controls and input elements.
-**Contains**: Buttons (default and blue), input fields, form controls.
-**Use for**: UI/UX wireframing, form layout design, web interface mockups.
-**Location**: `libraries/forms.excalidrawlib`
-
-### Gantt
-Gantt charts and timeline components.
-**Contains**: Timeline bars, team rows, month headers, task status indicators (Done, Delayed, Pending, Critical).
-**Use for**: Project timelines, Gantt charts, team capacity planning, roadmaps.
-**Location**: `libraries/gantt.excalidrawlib`
-
-### Google Icons
-Google Material Design icons.
-**Contains**: Material Design icons for navigation, actions, and communication.
-**Use for**: Modern UI mockups, Material Design interfaces, Android-style designs.
-**Location**: `libraries/google-icons.excalidrawlib`
+**Items** (69): Boxed confirm button (icon only), Boxed hamburger menu (icon only), Boxed hamburger menu (text+icon), Boxed reject button (icon only), Boxed toggle (OFF), Boxed toggle (ON), Boxed toggle with text (OFF), Boxed toggle with text (ON), Bulb, Check mark, Checkbox (text+icon), Confirm button (icon only), Confirm button (text+icon), Cross, Disabled checkbox (text+icon), Disabled dropdown menu, Disabled filled button (text only), Disabled outlined button (text only), Disabled radio button (text+icon), Disabled text field with placeholder, Dropdown menu, Dropdown with options, Filled button (text only), Filled help (icon only), Filled help (text+icon), Filled slider, Go back arrow, Go forward arrow, Hamburger menu (icon only), Hamburger menu (text+icon), Horizontal options, Horizontal options in the circle, Image placeholder, Image placeholder (simple), Modal, Outlined button (text only), Outlined help (icon only), Outlined help (text+icon), Outlined slider, Profile photo, Radio button (text+icon), Reject button (icon only), Reject button (text+icon), Rounded toggle (OFF), Rounded toggle (ON), Rounded toggle with text (OFF), Rounded toggle with text (ON), Search, Search field, Selected checkbox (icon only), Selected checkbox (text+icon), Selected disabled checkbox (text+icon), Selected disabled radio button (text+icon), Selected dropdown menu, Selected radio button (text+icon), Show more button (boxed), Show more button (circle), Text area, Text area with placeholder, Text field with placeholder, Text field with text, Tooltip (bottom), Tooltip (left), Tooltip (right), Tooltip (top), Upload image section, Vertical options, Vertical options in the circle, Videoplayer
 
 ### Icons
-General purpose icon library.
-**Contains**: Business icons, professional symbols, various visual elements.
-**Use for**: General diagramming, business process visualization, documentation.
+General purpose file and tool icons.
+**Use for**: File type indicators, document icons, technology symbols, general diagramming.
 **Location**: `libraries/icons.excalidrawlib`
-
-### Information Architecture
-Site map and navigation structure elements.
-**Contains**: Page blocks, navigation structures, hierarchy elements.
-**Use for**: Website information architecture, site maps, content structure planning.
-**Location**: `libraries/information-architecture.excalidrawlib`
+**Items** (65): ai, apk, attachment, avi, c, c#, c++, clipboard, cloud, code, css, dart, delete, dmg, doc, documents, download, esbuild, exe, flutter, flv, gif, go, html, iso, java, jest, jpg, js, message, more, mov, movie, mp3, node, notes, nuxt, otf, paper, password, pdf, php, png, ppt, psd, python, react, rollup, rust, search, share, shell, shredder, sketch, sql, swift, table, typescript, upload, vite, vue, wav, webpack, xls, zip
 
 ### IT Logos
 Technology company and software logos.
-**Contains**: Tech company logos, software vendor icons, platform identifiers.
 **Use for**: Technology stack visualization, enterprise software diagrams, tool integration.
 **Location**: `libraries/it-logos.excalidrawlib`
-
-### Lo-Fi Wireframing Kit
-Low-fidelity wireframe components.
-**Contains**: Text labels, buttons, inputs, navigation bars, basic UI placeholders.
-**Use for**: Quick UI sketching, rapid prototyping, layout brainstorming.
-**Location**: `libraries/lo-fi-wireframing-kit.excalidrawlib`
-
-### Post-it
-Sticky notes and Kanban-style elements.
-**Contains**: Sticky notes, colored task cards, list items.
-**Use for**: Brainstorming sessions, Kanban boards, agile sprint planning, idea organization.
-**Location**: `libraries/post-it.excalidrawlib`
-
-### Robots
-Hand-drawn robot figures.
-**Contains**: Robot characters in various poses (sitting, standing, active).
-**Use for**: Tech/automation infographics, AI content, robotics illustrations.
-**Location**: `libraries/robots.excalidrawlib`
-
-### Software Architecture
-Software architecture diagram components.
-**Contains**: Colored diamonds, containers, decision points, system boundaries.
-**Use for**: Software architecture diagrams, system design, API visualization.
-**Location**: `libraries/software-architecture.excalidrawlib`
-
-### Some Hand-Drawn Signs
-Checkmarks and crosses.
-**Contains**: Hand-drawn checkmarks and crosses in red/green colors.
-**Use for**: Success/failure indicators, form validation visuals, approval workflows.
-**Location**: `libraries/some-handdrawn-signs.excalidrawlib`
-
-### Stick Figures
-Stick figure people in various poses.
-**Contains**: Stick figures with different postures and expressions.
-**Use for**: User flows, process diagrams, storytelling, educational content.
-**Location**: `libraries/stick-figures.excalidrawlib`
-
-### Stick People
-Stick people variations.
-**Contains**: Additional stick people designs and poses.
-**Use for**: User journey mapping, scenario illustrations, presentation visuals.
-**Location**: `libraries/stick-people.excalidrawlib`
-
-### Storytelling
-Narrative and storytelling elements.
-**Contains**: Character shapes, scene elements, narrative components.
-**Use for**: Visual storytelling, presentation narratives, educational illustrations.
-**Location**: `libraries/storytelling.excalidrawlib`
-
-### System Design
-System design components with labeled elements.
-**Contains**: Application servers, databases, clients, and labeled system blocks.
-**Use for**: System design interviews, architecture diagrams, distributed systems.
-**Location**: `libraries/system-design.excalidrawlib`
+**Items** (31): Angular v1, Angular v2, Argo CD, BonitaSoft, Docker, Excalidraw v1, Excalidraw v2, Firebase, Flux CD, GitLab, Kafka, Kanoma, Kubernetes, LinkedIn, Lobe AI, Micronaut, Next, Nx, Python, React, Slack, SmartBear, SoapUI, Strava, Svelte, TensorFlow, Twitter, Vercel, VSCode, Vue, X Twitter
 
 ### System Icons
 Simple system UI icons.
-**Contains**: Colored status circles (purple, red, green), status indicators.
 **Use for**: Dashboard designs, status indicator systems, interface mockups.
 **Location**: `libraries/system-icons.excalidrawlib`
+**Items** (24): 3d, application, atlas, bar graph, book, clean up, collection, document, file, filter, lightning, line-graph, magic wand, notice, paper plane, picture, regulator, relationship, set up, standardization, star, tree, warn, zip
 
-### Systems Design Components
-System design building blocks.
-**Contains**: Server components, load balancers, caches, and infrastructure elements.
-**Use for**: System design diagrams, scalability patterns, infrastructure planning.
-**Location**: `libraries/systems-design-components.excalidrawlib`
+### Algorithms & Data Structures
+Arrays, matrices, trees, linked lists, and algorithm visualization components.
+**Use for**: Algorithm tutorials, data structure education, CS concept explanations.
+**Location**: `libraries/algorithms-and-data-structures-arrays-matrices-trees.excalidrawlib`
+**Items** (22): NIL - Single black, Array - 10, Array - 20, Array numbered - 10, Array numbered - 20, Black node filter, Dataset/Hashing table - 5, Datatable - 5, Left rotation, Linked List horizontal - 5, Linked List vertical - 5, Matrix - 10x10, Matrix - 3x3, Matrix - 4x4, Matrix - 5x5, NIL - Double black, Red node filter, Right rotation, Tree - 1, Tree - 2, Tree - 3, Tree - 4
 
-### Technology Logos
-Technology and programming logos.
-**Contains**: Tech logos with colored backgrounds (purple, various colors).
-**Use for**: Tech stack visualization, portfolio showcases, integration diagrams.
-**Location**: `libraries/technology-logos.excalidrawlib`
-
-### UML-ER Library
-UML and Entity-Relationship diagram elements.
-**Contains**: Diamonds, rectangles, ellipses, and 21 UML/ER components.
-**Use for**: Database schemas, class diagrams, entity relationships, UML designs.
-**Location**: `libraries/UML-ER-library.excalidrawlib`
+### Artem's Icons
+Minimalist line-based icon collection.
+**Use for**: Adding stylized icons to diagrams, UI mockups, visual decoration.
+**Location**: `libraries/artem-s-icons.excalidrawlib`
+**Items** (22): accept, arrow, cancel, files, finish, folder, icon, important, information, laptop, next step, organisation, process, question, server, smartphone, start step, tablet, target, toggle off, toggle on, warning
 
 ### Universal UI Kit
 Comprehensive UI component library.
-**Contains**: Status boxes (attention, error, success), alert dialogs, pricing cards, web templates.
 **Use for**: Complete UI mockups, website prototypes, SaaS pricing pages, error message templates.
 **Location**: `libraries/universal-ui-kit.excalidrawlib`
+**Items** (22): Alert, Bar Chart, Button, Button Group, Calendar, Checkbox Checked, Checkbox Unchecked, Circle Progress Bar, Date Input, Horizontal Scroll, Line chart, Linear Progress Bar, Number Input, Pie chart, Search Input, Select, Slider, Toggle Checked, Toggle Unchecked, Tooltip, User Icon, Vertical Scroll
 
-### Web Kit
-Professional web template components.
-**Contains**: Navigation bars, hero sections, CTAs, statistics counters, pricing tiers.
-**Use for**: Website design mockups, landing page prototypes, portfolio templates.
-**Location**: `libraries/web-kit.excalidrawlib`
+### Information Architecture
+Site map and navigation structure elements.
+**Use for**: Website information architecture, site maps, content structure planning.
+**Location**: `libraries/information-architecture.excalidrawlib`
+**Items** (17): area, cluster, concurrent set, conditional area, conditional branch, conditonal selector, continuation x, continuation y, decision point, file, file stack, flow area x, flow area y, flow reference, iterative area, page, page stack
 
+### Architecture Diagram Components
+System and software architecture building blocks.
+**Use for**: System architecture diagrams, component design, technical documentation.
+**Location**: `libraries/architecture-diagram-components.excalidrawlib`
+**Items** (11): Device, Docker, Email, GitHub, Private subnet, Public subnet, Server, Slack, User, Users, VPC
+
+### Stick Figures
+Stick figure people in various poses.
+**Use for**: User flows, process diagrams, storytelling, educational content.
+**Location**: `libraries/stick-figures.excalidrawlib`
+**Items** (9): Child, Girl, Grandma, Guy, Happy, Moustache man, Sad, Shrug, Stick man
+
+### Stick People
+Stick people variations.
+**Use for**: User journey mapping, scenario illustrations, presentation visuals.
+**Location**: `libraries/stick-people.excalidrawlib`
+**Items** (7): Stick man standard, Stick man standard looking left, Stick man talking, Stick man thinking, Stick man with a hat, Stick woman standard, Stick woman thinking
+
+### Data Sources
+Database and data system icons.
+**Use for**: Data pipeline diagrams, database visualization, ETL flows, data architecture.
+**Location**: `libraries/data-sources.excalidrawlib`
+**Items** (6): Data sources, Email, FTP, GraphQL, Kafka, USB
+
+### Systems Design Components
+System design building blocks.
+**Use for**: System design diagrams, scalability patterns, infrastructure planning.
+**Location**: `libraries/systems-design-components.excalidrawlib`
+**Items** (6): Cloud, Cloud Infra Starter Kit, DB, db, Servers, Stream
+
+### Some Hand-Drawn Signs
+Checkmarks and crosses.
+**Use for**: Success/failure indicators, form validation visuals, approval workflows.
+**Location**: `libraries/some-handdrawn-signs.excalidrawlib`
+**Items** (2): check, cross
+
+---
 
 ### Phase 4: Validate JSON
 
@@ -330,28 +220,6 @@ python3 scripts/validate_excalidraw.py output/your_file.excalidraw
 
 Fix any errors reported.
 
-### Phase 5: Visual Validation
-
-Use Playwright MCP to validate output/your_file.excalidraw visually:
-
-First, copy your validated excalidraw from phase 4 to the validation-app using below script:
-```bash
-python3 scripts/copy_to_validation.py your_file.excalidraw
-```
-
-Next, start the validation app and use playwright MCP to take a screenshot so you can visually validate your work.
-```
-1. Start the local validation app: cd validation-app && pnpm run dev
-2. Use Playwright MCP to navigate to: http://localhost:3000
-3. browser_take_screenshot to capture result
-```
-NOTE:  Read [reference/keyboard-shortcuts.md](reference/keyboard-shortcuts.md) if you have trouble viewing / taking screenshot of full canvas.
-
-Fix any visual bugs found and revalidate (Do Phase 4-5 again)
-
-When your excalidraw looks fine, you should clean up the valiation app by running below script:
-```bash
-python3 scripts/clean_validation_app.py
-```
-
+### Phase 5: Human in loop Visual Validation
+Ask the human to review the output and give feedback.  Modify the output/your_file.excalidraw accordingly and keep itterating with the human until he gives the final approval of all done.
 
